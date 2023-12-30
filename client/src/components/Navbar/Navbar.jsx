@@ -36,14 +36,17 @@ const Navbar = () => {
 
       <ul className='hidden md:flex'>
         {navItems.map((item) => (
+          <Link to={item.path} key={item.id} onClick={handleLinkClick}>
           <li
             key={item.id}
             className='p-4 hover:bg-[#00df9a] rounded-xl m-2 cursor-pointer duration-300 hover:text-black'
           >
-            <Link to={item.path} onClick={handleLinkClick}>
+
               {item.text}
-            </Link>
-          </li>
+           
+          </li> 
+          </Link>
+
         ))}
       </ul>
 
