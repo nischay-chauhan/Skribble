@@ -27,13 +27,13 @@ const Contact = () => {
 
   return (
     <>
-      <div className="mt-8">
-        <h2 className="text-2xl font-bold mb-4">Contact Us</h2>
-        <form onSubmit={handleSubmit}>
-          <div className="mb-4">
+      <div className="mt-16 max-w-md mx-auto ">
+        <h2 className="text-2xl font-bold mb-4 text-black">Contact Us</h2>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div className="relative">
             <label
               htmlFor="name"
-              className="block text-sm font-medium text-gray-600"
+              className="block text-sm font-medium text-black"
             >
               Name
             </label>
@@ -43,15 +43,15 @@ const Contact = () => {
               name="name"
               value={formData.name}
               onChange={handleChange}
-              className="mt-1 p-2 w-full border rounded-md"
+              className="mt-1 p-2 w-full border-b rounded-md text-black transition-all duration-300 focus:border-[#00df9a] hover:border-gradient"
               required
             />
           </div>
 
-          <div className="mb-4">
+          <div className="relative">
             <label
               htmlFor="email"
-              className="block text-sm font-medium text-gray-600"
+              className="block text-sm font-medium text-black"
             >
               Email
             </label>
@@ -61,15 +61,15 @@ const Contact = () => {
               name="email"
               value={formData.email}
               onChange={handleChange}
-              className="mt-1 p-2 w-full border rounded-md"
+              className="mt-1 p-2 w-full border-b rounded-md text-black transition-all duration-300 focus:border-[#00df9a] hover:border-gradient"
               required
             />
           </div>
 
-          <div className="mb-4">
+          <div className="relative">
             <label
               htmlFor="message"
-              className="block text-sm font-medium text-gray-600"
+              className="block text-sm font-medium text-black"
             >
               Message
             </label>
@@ -78,14 +78,14 @@ const Contact = () => {
               name="message"
               value={formData.message}
               onChange={handleChange}
-              className="mt-1 p-2 w-full border rounded-md"
+              className="mt-1 p-2 w-full border-b rounded-md text-black transition-all duration-300 focus:border-[#00df9a] hover:border-gradient"
               required
             />
           </div>
 
           <button
             type="submit"
-            className="bg-blue-500 text-white p-2 rounded-md hover:bg-blue-700"
+            className="bg-[#00df9a] text-white p-2 rounded-md hover:bg-green-700"
           >
             Submit
           </button>
