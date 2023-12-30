@@ -1,12 +1,17 @@
-import Navbar from "../Navbar/Navbar"
+import PropTypes from 'prop-types';
+import Navbar from '../Navbar/Navbar';
 
-const Layout = ({children}) => {
+const Layout = ({ children }) => {
   return (
     <>
       <Navbar />
       <>{children}</>
     </>
-  )
-}
+  );
+};
 
-export default Layout
+Layout.propTypes = {
+  children: PropTypes.node.isRequired,
+};
+
+export default Layout;
