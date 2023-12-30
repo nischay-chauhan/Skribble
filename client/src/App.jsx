@@ -1,17 +1,41 @@
-import { useState } from 'react'
-import './App.css'
-
+import {   createBrowserRouter,
+  RouterProvider,
+  } from "react-router-dom";
+import Register from "./components/Register/Register";
+import Home from "./pages/Home/Home";
+import Login from "./components/Login/Login";
+import About from "./components/About/About";
+import Contact from "./components/Contact/Contact";
+import Layout from "./components/Layout/Layout";
 function App() {
-  const [count, setCount] = useState(0)
+  const router = createBrowserRouter([
+    {
+      path: '/',
+      element: <Layout><Home /></Layout>,
+    },
+    {
+      path: '/register',
+      element: <Layout><Register /></Layout>,
+    },
+    {
+      path: '/login',
+      element: <Layout><Login /></Layout>,
+    },
+    {
+      path: '/about',
+      element: <Layout><About /></Layout>,
+    },
+    {
+      path: '/contact',
+      element: <Layout><Contact /></Layout>,
+    },
+  ]);
 
-  // const handleClick = () => {
-  //   setCount(count + 1)
-  // }
-
+  
   return (
-    <div className='flex  items-center justify-center bg-black h-screen q-full '>
-     <button className='px-2 py-4 h-40 w-40 rounded bg-slate-500' onClick={()=>setCount(count + 1)}>{count}</button>
-    </div>
+
+    <RouterProvider router={router} />
+
   )
 }
 
