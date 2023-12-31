@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 import connectDB from './config/db.js';
 import cookieParser from 'cookie-parser';
+import cors from 'cors'; // Import the cors middleware
 import { notFound, errorHandler } from './middleware/errorMiddleware.js';
 import userRoutes from './routes/userRoutes.js';
 
@@ -17,9 +18,10 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(cookieParser());
 
+// Use cors middleware
+app.use(cors());
+
 app.use('/api/users', userRoutes);
-
-
 
 app.use(notFound);
 app.use(errorHandler);
