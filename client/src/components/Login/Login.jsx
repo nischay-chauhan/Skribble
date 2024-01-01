@@ -19,11 +19,14 @@ const Login = () => {
 
     try {
       const response = await axios.post("http://localhost:5000/api/users/login", formData);
-
-      console.log(response.data);
       toast.success("Successfully logged in!");
-
-      navigate("/about");
+      console.log(response.data);
+     
+      localStorage.setItem("token", response.data.token);
+        setTimeout(() => {
+          navigate("/about");
+        } , 1000)
+      
     } catch (error) {
       console.error("Login error:", error);
       toast.error("Failed to log in. Please check your credentials and try again.");

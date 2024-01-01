@@ -7,6 +7,7 @@ import Login from "./components/Login/Login";
 import About from "./components/About/About";
 import Contact from "./components/Contact/Contact";
 import Layout from "./components/Layout/Layout";
+import Profile from "./components/Profile/Profile";
 function App() {
   const router = createBrowserRouter([
     {
@@ -29,6 +30,10 @@ function App() {
       path: '/contact',
       element: <Layout><Contact /></Layout>,
     },
+    {
+      path:"/profile",
+      element:<Layout><Profile /></Layout>
+    }
   ]);
 
   

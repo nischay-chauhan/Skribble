@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
-
+import isAuthenticated from '../Auth';
 const Navbar = () => {
   const [nav, setNav] = useState(false);
 
@@ -13,7 +13,7 @@ const Navbar = () => {
     setNav(false);
   };
 
-  const isLoggedIn = false;
+  const isLoggedIn = isAuthenticated();
 
   const navItems = isLoggedIn
     ? [
