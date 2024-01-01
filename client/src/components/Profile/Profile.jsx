@@ -2,6 +2,9 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { toast, Toaster } from 'react-hot-toast';
+import ForgotPassword from '../ForgotPassword/ForgotPassword';
+
+// ... (imports)
 
 const Profile = () => {
   const navigate = useNavigate();
@@ -11,26 +14,24 @@ const Profile = () => {
 
   useEffect(() => {
     const fetchUserProfile = async () => {
-        try {
-          const user = JSON.parse(localStorage.getItem("user"));
-      
-          if (user) {
-            setUser(user);
-          } else {
-           
-            setUser("Sorry But no data available")
-          }
-        } catch (error) {
-          console.error('Error fetching user profile:', error);
-          setError('Error fetching user profile. Please try again.');
-        } finally {
-          setLoading(false);
+      try {
+        const user = JSON.parse(localStorage.getItem("user"));
+
+        if (user) {
+          setUser(user);
+        } else {
+          setError("User data not found");
         }
-      };
+      } catch (error) {
+        console.error('Error fetching user profile:', error);
+        setError('Error fetching user profile. Please try again.');
+      } finally {
+        setLoading(false);
+      }
+    };
 
     fetchUserProfile();
   }, []);
-  
 
   const handleClick = async () => {
     try {
@@ -64,13 +65,16 @@ const Profile = () => {
               <span className="font-bold">Email:</span> {user.email}
             </p>
           </div>
-        ) : null}
+        ) : (
+          <p>User data not available</p>
+        )}
         <button
           className="mt-6 px-4 py-2 bg-red-500 text-white rounded-md hover:scale-105 transition-transform"
           onClick={handleClick}
         >
           LOGOUT
         </button>
+        {user && <ForgotPassword userEmail={user.email} />}
       </div>
     </div>
   );

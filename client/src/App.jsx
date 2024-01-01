@@ -10,6 +10,8 @@ import Contact from './components/Contact/Contact';
 import Layout from './components/Layout/Layout';
 import Profile from './components/Profile/Profile';
 import Privacy from './components/Policy/Privacy';
+import ForgotPassword from './components/ForgotPassword/ForgotPassword';
+import ResetPassword from './components/ForgotPassword/ResetPassword';
 
 function App() {
   const router = createBrowserRouter([
@@ -41,6 +43,14 @@ function App() {
       path: '/privacy-policy',
       element: <Layout><Privacy /></Layout>,
     },
+    {
+      path : '/forgot-password',
+      element : <Layout><ForgotPassword /></Layout>
+    },
+    {
+      path : '/reset-password/:resetToken',
+      element : <Layout><ResetPassword /></Layout>
+    }
   ]);
 
   return (
