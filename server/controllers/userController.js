@@ -1,7 +1,7 @@
 import asyncHandler from 'express-async-handler';
 import User from '../models/userModel.js';
 import generateToken from '../utils/generateToken.js';
-import  Jwt  from 'jsonwebtoken';
+import  jwt  from 'jsonwebtoken';
 import { sendResetEmail } from '../mailer/Mailer.js';
 // @desc    Auth user & get token
 // @route   POST /api/users/auth
@@ -118,43 +118,43 @@ const updateUserProfile = asyncHandler(async (req, res) => {
 // @route   POST /api/users/forgotPassword
 // @access  Public
 const forgotPassword = asyncHandler(async (req, res) => {
-  const {email} = req.body;
-  const user = await User.findOne({email});
+  const { email } = req.body;
+  const user = await User.findOne({ email });
 
-  if(!user){
+  if (!user) {
     res.status(404);
     throw new Error('User not found');
   }
 
-  const resetToken = jwt.sign({userId : user._id},process.env.JWT_SECRET , {expiresIn : '1h'});
+  const resetToken = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
 
   user.resetPasswordToken = resetToken;
-  user.resetPasswordTokenExpires = Date.now() + 60*60*1000
+  user.resetPasswordTokenExpires = Date.now() + 60 * 60 * 1000;
   await user.save();
 
   const resetLink = `http://localhost:5173/reset-password/${resetToken}`;
 
   try {
-    await sendResetEmail(user.email , resetLink);
-    res.json({message : 'Password reset email sent '});
-  }catch (error) {
+    await sendResetEmail({ to: user.email, resetLink });
+    res.json({ message: 'Password reset email sent ' });
+  } catch (error) {
     console.error(error);
     res.status(500);
     throw new Error('Error sending password reset email');
   }
-
 });
 
-const resetPassword = async (req , res) => {
-  const {resetToken} = req.params;
-  const {password} = req.body;
+
+const resetPassword = async (req, res) => {
+  const { resetToken } = req.params;
+  const { password } = req.body;
 
   const user = await User.findOne({
-    resetPasswordToken : resetToken,
-    resetPasswordTokenExpires : {$gt : Date.now()}
+    resetPasswordToken: resetToken,
+    resetPasswordTokenExpires: { $gt: Date.now() }
   });
 
-  if(!user){
+  if (!user) {
     res.status(400);
     throw new Error('Invalid or expired Token');
   }
@@ -164,9 +164,8 @@ const resetPassword = async (req , res) => {
   user.resetPasswordTokenExpires = undefined;
   await user.save();
 
-  res.status(200).json({message : 'Password reset successfully'});
-
-  }
+  res.status(200).json({ message: 'Password reset successfully' });
+};
 
 export {
   authUser,

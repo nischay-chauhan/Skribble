@@ -5,16 +5,22 @@ const ForgotPassword = ({ userEmail }) => {
     const [email, setEmail] = useState(userEmail || ''); 
   
     const handleResetRequest = async (e) => {
-      e.preventDefault();
-  
-      try {
-        const response = await axios.post('http://localhost:5000/api/users/forgotpassword', { email });
-        console.log(response.data);
-      } catch (error) {
-        console.error('Error requesting password reset:', error.response.data.error);
-      }
-    };
-  
+        e.preventDefault();
+      
+        // Validate the email
+        if (!email) {
+          console.error('Email is required');
+          return;
+        }
+      
+        try {
+          const response = await axios.post('http://localhost:5000/api/users/forgotpassword', { email });
+          console.log(response.data);
+        } catch (error) {
+          console.error('Error requesting password reset:', error.response.data.error);
+        }
+      };
+      
     return (
       <div className="">
         <form className="flex flex-col bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" onSubmit={handleResetRequest}>

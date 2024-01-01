@@ -1,15 +1,17 @@
+// isAuthenticated.js
+
 import axios from 'axios';
 
 const isAuthenticated = () => {
-  const user = JSON.parse(localStorage.getItem('user'));
+  const token = localStorage.getItem('user'); // Change 'token' to 'user'
 
-  if (user) {
-    axios.defaults.headers.common['Authorization'] = `Bearer ${user.token}`;
+  if (token) {
+    axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
     return true;
+  } else {
+    delete axios.defaults.headers.common['Authorization'];
+    return false;
   }
-
-  delete axios.defaults.headers.common['Authorization'];
-  return false;
 };
 
 export default isAuthenticated;

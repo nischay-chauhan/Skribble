@@ -4,8 +4,6 @@ import { useNavigate } from 'react-router-dom';
 import { toast, Toaster } from 'react-hot-toast';
 import ForgotPassword from '../ForgotPassword/ForgotPassword';
 
-// ... (imports)
-
 const Profile = () => {
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
@@ -36,9 +34,10 @@ const Profile = () => {
   const handleClick = async () => {
     try {
       await axios.post('http://localhost:5000/api/users/logout');
-      localStorage.removeItem('token');
+      localStorage.removeItem('user'); // Change this line
+  
       toast.success('Successfully logged out!');
-
+  
       setTimeout(() => {
         navigate('/login');
       }, 1000);
@@ -46,6 +45,7 @@ const Profile = () => {
       console.error('Logout error:', error);
     }
   };
+  
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-blue-500 to-indigo-500">
@@ -74,7 +74,7 @@ const Profile = () => {
         >
           LOGOUT
         </button>
-        {user && <ForgotPassword userEmail={user.email} />}
+        {/* {user && <ForgotPassword userEmail={user.email} />} */}
       </div>
     </div>
   );
