@@ -20,7 +20,7 @@ const Navbar = () => {
         { id: 1, text: 'Home', path: '/' },
         { id: 2, text: 'About', path: '/about' },
         { id: 3, text: 'Contact', path: '/contact' },
-        { id: 6, text: 'Profile', path: '/profile' },
+        { id: 6, text: 'Profile', path: '/profile/:id' },
       ]
     : [
         { id: 1, text: 'Home', path: '/' },

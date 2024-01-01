@@ -19,11 +19,18 @@ const Register = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post("http://localhost:5000/api/users/register", formData);
+      const response = await axios.post(
+        "http://localhost:5000/api/users/register",
+        formData
+      );
 
       console.log(response.data);
       toast.success("Successfully registered!");
-      navigate("/login");
+
+      setTimeout(() => {
+        navigate("/login");
+      },1000)
+      
     } catch (error) {
       console.error("Registration error:", error);
       toast.error("Failed to register. Please try again.");
@@ -33,6 +40,8 @@ const Register = () => {
   return (
     <section className="flex md:flex-col h-screen w-screen bg-gradient-to-r from-purple-500 via-indigo-500 to-teal-500">
       <Toaster />
+      
+ 
       <div className="container h-full px-6 py-24 grid grid-cols-2">
         <div className="col-span-1 flex justify-center items-center w-full h-full">
           <img
@@ -42,6 +51,7 @@ const Register = () => {
           />
         </div>
         <div className="col-span-1 ml-10 flex flex-col justify-center items-center">
+        <h1 className="text-5xl font-bold text-white mb-10">Register</h1>
           <form onSubmit={handleSubmit}>
             <div className="mb-6">
               <label htmlFor="name" className="text-lg font-medium text-white">
@@ -70,7 +80,10 @@ const Register = () => {
               />
             </div>
             <div className="mb-6">
-              <label htmlFor="password" className="text-lg font-medium text-white">
+              <label
+                htmlFor="password"
+                className="text-lg font-medium text-white"
+              >
                 Password
               </label>
               <input

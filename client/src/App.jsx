@@ -1,13 +1,16 @@
-import {   createBrowserRouter,
+import {
+  createBrowserRouter,
   RouterProvider,
-  } from "react-router-dom";
-import Register from "./components/Register/Register";
-import Home from "./pages/Home/Home";
-import Login from "./components/Login/Login";
-import About from "./components/About/About";
-import Contact from "./components/Contact/Contact";
-import Layout from "./components/Layout/Layout";
-import Profile from "./components/Profile/Profile";
+} from 'react-router-dom';
+import Register from './components/Register/Register';
+import Home from './pages/Home/Home';
+import Login from './components/Login/Login';
+import About from './components/About/About';
+import Contact from './components/Contact/Contact';
+import Layout from './components/Layout/Layout';
+import Profile from './components/Profile/Profile';
+import Privacy from './components/Policy/Privacy';
+
 function App() {
   const router = createBrowserRouter([
     {
@@ -31,17 +34,18 @@ function App() {
       element: <Layout><Contact /></Layout>,
     },
     {
-      path:"/profile",
-      element:<Layout><Profile /></Layout>
-    }
+      path: '/profile/:id',
+      element: <Layout><Profile /></Layout>,
+    },
+    {
+      path: '/privacy-policy',
+      element: <Layout><Privacy /></Layout>,
+    },
   ]);
 
-  
   return (
-
     <RouterProvider router={router} />
-
-  )
+  );
 }
 
-export default App
+export default App;

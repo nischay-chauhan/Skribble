@@ -16,17 +16,17 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     try {
       const response = await axios.post("http://localhost:5000/api/users/login", formData);
       toast.success("Successfully logged in!");
-      console.log(response.data);
-     
-      localStorage.setItem("token", response.data.token);
-        setTimeout(() => {
-          navigate("/about");
-        } , 1000)
-      
+  
+      const user = response.data;
+      localStorage.setItem("user", JSON.stringify(user));
+  
+      setTimeout(() => {
+        navigate("/about");
+      }, 1000);
     } catch (error) {
       console.error("Login error:", error);
       toast.error("Failed to log in. Please check your credentials and try again.");
@@ -45,6 +45,7 @@ const Login = () => {
           />
         </div>
         <div className="col-span-1 ml-10 flex flex-col justify-center items-center">
+        <h1 className="text-5xl font-bold text-white mb-10">LOGIN</h1>
           <form onSubmit={handleSubmit}>
             <div className="mb-6">
               <label htmlFor="email" className="text-lg font-medium text-white">
