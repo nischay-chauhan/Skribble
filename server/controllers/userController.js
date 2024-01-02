@@ -3,6 +3,8 @@ import User from '../models/userModel.js';
 import generateToken from '../utils/generateToken.js';
 import  jwt  from 'jsonwebtoken';
 import { sendResetEmail } from '../mailer/Mailer.js';
+import bcrypt from 'bcrypt';
+
 // @desc    Auth user & get token
 // @route   POST /api/users/auth
 // @access  Public
@@ -132,7 +134,7 @@ const forgotPassword = asyncHandler(async (req, res) => {
   user.resetPasswordTokenExpires = Date.now() + 60 * 60 * 1000;
   await user.save();
 
-  const resetLink = `http://localhost:5173/reset-password/${resetToken}`;
+  const resetLink = `http://localhost:5173/reset-password/${user._id}/${resetToken}`;
 
   try {
     await sendResetEmail({ to: user.email, resetLink });
@@ -145,26 +147,21 @@ const forgotPassword = asyncHandler(async (req, res) => {
 });
 
 
+
 const resetPassword = async (req, res) => {
-  const { resetToken } = req.params;
+  const { id, resetToken } = req.params;
   const { password } = req.body;
 
-  const user = await User.findOne({
-    resetPasswordToken: resetToken,
-    resetPasswordTokenExpires: { $gt: Date.now() }
-  });
+  try {
+    const decoded = jwt.verify(resetToken, process.env.JWT_SECRET);
+    const hashedPassword = await bcrypt.hash(password, 10);
 
-  if (!user) {
-    res.status(400);
-    throw new Error('Invalid or expired Token');
+    const updatedUser = await User.findByIdAndUpdate({ _id: id }, { password: hashedPassword });
+    res.json({ Status: 'Success' });
+  } catch (error) {
+    console.error('Error in resetPassword:', error);
+    res.status(500).json({ Status: 'Internal Server Error' });
   }
-
-  user.password = password;
-  user.resetPasswordToken = undefined;
-  user.resetPasswordTokenExpires = undefined;
-  await user.save();
-
-  res.status(200).json({ message: 'Password reset successfully' });
 };
 
 export {

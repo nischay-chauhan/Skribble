@@ -1,18 +1,26 @@
 import { useState } from 'react';
-import { useParams } from 'react-router-dom'; 
+import { useNavigate, useParams } from 'react-router-dom'; 
 import  axios  from 'axios';
 const ResetPassword = () => {
-  const { resetToken } = useParams(); 
+  const { id , resetToken } = useParams(); 
   const [password, setPassword] = useState('');
+  const navigate = useNavigate()
 
   const handleResetPassword = async () => {
     try {
-      const response = await axios.put(`http://localhost:5000/api/users/resetpassword/${resetToken}`, { password });
+      const response = await axios.post(`http://localhost:5000/api/users/resetpassword/${id}/${resetToken}`, { password });
       console.log(response.data);
+
+      if (response.data.Status === 'Success') {
+        navigate('/login');
+      } else {
+        console.error('Password reset failed:', response.data.error);
+      }
     } catch (error) {
       console.error('Error resetting password:', error.response.data.error);
     }
   };
+  
 
   return (
     <div className='flex flex-col bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4'>

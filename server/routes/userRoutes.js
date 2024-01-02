@@ -21,7 +21,7 @@ router
   .put(protect, updateUserProfile);
 
 router.post('/forgotpassword', forgotPassword);
-router.put('/resetpassword/:resetToken', resetPassword);
+router.post('/resetpassword/:id/:resetToken', resetPassword);
 
 
 export default router;

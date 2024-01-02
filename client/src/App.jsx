@@ -48,7 +48,7 @@ function App() {
       element : <Layout><ForgotPassword /></Layout>
     },
     {
-      path : '/reset-password/:resetToken',
+      path : '/reset-password/:id/:resetToken',
       element : <Layout><ResetPassword /></Layout>
     }
   ]);

@@ -6,9 +6,7 @@ const ForgotPassword = ({ userEmail }) => {
   
     const handleResetRequest = async (e) => {
         e.preventDefault();
-      
-        // Validate the email
-        if (!email) {
+              if (!email) {
           console.error('Email is required');
           return;
         }
