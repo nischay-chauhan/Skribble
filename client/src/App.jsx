@@ -12,6 +12,7 @@ import Profile from './components/Profile/Profile';
 import Privacy from './components/Policy/Privacy';
 import ForgotPassword from './components/ForgotPassword/ForgotPassword';
 import ResetPassword from './components/ForgotPassword/ResetPassword';
+import License from './components/License/License';
 
 function App() {
   const router = createBrowserRouter([
@@ -50,6 +51,10 @@ function App() {
     {
       path : '/reset-password/:id/:resetToken',
       element : <Layout><ResetPassword /></Layout>
+    },
+    {
+      path : '/licensing',
+      element : <Layout><License /></Layout>
     }
   ]);
 
