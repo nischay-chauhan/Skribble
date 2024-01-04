@@ -13,6 +13,7 @@ import Privacy from './components/Policy/Privacy';
 import ForgotPassword from './components/ForgotPassword/ForgotPassword';
 import ResetPassword from './components/ForgotPassword/ResetPassword';
 import License from './components/License/License';
+import NotFound from './components/Notfound/NotFound';
 
 function App() {
   const router = createBrowserRouter([
@@ -55,7 +56,11 @@ function App() {
     {
       path : '/licensing',
       element : <Layout><License /></Layout>
-    }
+    },
+    {
+      path: '*',
+      element: <Layout><NotFound /></Layout>,
+    },
   ]);
 
   return (
